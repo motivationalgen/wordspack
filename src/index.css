@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Wordspack design system. All colors HSL. */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 180 14% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 180 14% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 14% 12%;
+
+    /* Dark Ash Green #2F4F4F */
+    --primary: 180 25% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 180 25% 35%;
+
+    /* Light Grey #F5F5F5 */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 180 25% 25%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 180 8% 40%;
+
+    --accent: 180 25% 95%;
+    --accent-foreground: 180 25% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 180 10% 90%;
+    --input: 180 10% 90%;
+    --ring: 180 25% 25%;
+
+    --radius: 0.625rem;
+
+    --shadow-card: 0 2px 12px -2px hsl(180 25% 25% / 0.08);
+    --shadow-card-hover: 0 8px 24px -6px hsl(180 25% 25% / 0.18);
+    --gradient-hero: linear-gradient(135deg, hsl(180 25% 25%) 0%, hsl(180 25% 35%) 100%);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 180 14% 8%;
+    --foreground: 0 0% 96%;
+    --card: 180 14% 10%;
+    --card-foreground: 0 0% 96%;
+    --popover: 180 14% 10%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 180 25% 65%;
+    --primary-foreground: 180 25% 12%;
+    --secondary: 180 10% 15%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 180 10% 15%;
+    --muted-foreground: 180 8% 65%;
+    --accent: 180 10% 18%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 180 10% 18%;
+    --input: 180 10% 18%;
+    --ring: 180 25% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .ad-slot {
+    @apply flex items-center justify-center text-xs uppercase tracking-widest text-muted-foreground/70 bg-secondary/60 border border-dashed border-border rounded-[10px] overflow-hidden;
+  }
+  .ad-slot.top-banner {
+    @apply w-full min-h-[90px] my-3;
+  }
+  .ad-slot.in-tool {
+    @apply w-full min-h-[120px] my-4;
+  }
+  .ad-slot.after-results {
+    @apply w-full min-h-[100px] my-4;
+  }
+  .ad-slot.sidebar {
+    @apply w-full min-h-[600px];
+  }
+  .ad-slot.sticky-footer {
+    @apply fixed bottom-0 inset-x-0 z-40 min-h-[60px] rounded-none border-x-0 border-b-0 lg:hidden;
+    background: hsl(var(--secondary));
+  }
+
+  .tool-card {
+    @apply relative flex flex-col gap-2 rounded-[14px] border border-border bg-card p-5 transition-all duration-200 cursor-pointer;
+    box-shadow: var(--shadow-card);
+  }
+  .tool-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+}
