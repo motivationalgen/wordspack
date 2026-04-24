@@ -28,6 +28,19 @@
   <meta name="twitter:description" content="Free online word tools: word scrambler, random word generator, word counter, word of the day, brand name generator, and typing speed test.">
   <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a6af0ca-7792-4940-9b9d-0aa47aa3a4e7/id-preview-375012df--ce826631-63bf-4c08-ab62-0293fef61e09.lovable.app-1776732658969.png">
   <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a6af0ca-7792-4940-9b9d-0aa47aa3a4e7/id-preview-375012df--ce826631-63bf-4c08-ab62-0293fef61e09.lovable.app-1776732658969.png">
+    <!-- SPA redirect for GitHub Pages -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
 </head>
 
   <body>
