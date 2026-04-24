@@ -7,6 +7,7 @@ import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { RotateCcw, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FAQ } from "@/components/FAQ";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("typing-speed-test")!;
 
@@ -18,6 +19,10 @@ const TypingSpeedTest = () => {
   const [now, setNow] = useState(Date.now());
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { add } = useSessionHistory();
+
+  useEffect(() => {
+    trackEvent(tool.name);
+  }, []);
 
   useEffect(() => {
     if (!startedAt || finishedAt) return;
@@ -48,12 +53,13 @@ const TypingSpeedTest = () => {
     if (v === passage) {
       const end = Date.now();
       setFinishedAt(end);
-      const finalWpm = Math.round((passage.length / 5) / ((end - (startedAt ?? end)) / 60000));
+      const durationMins = (end - (startedAt ?? end)) / 60000;
+      const finalWpm = Math.round((passage.length / 5) / Math.max(0.001, durationMins));
       add({
         tool: tool.name,
         toolSlug: tool.slug,
         input: `${passage.slice(0, 30)}…`,
-        output: `${finalWpm} WPM, ${Math.round((correctCount / v.length) * 100)}% accuracy`,
+        output: `${finalWpm} WPM, 100% accuracy`,
       });
     }
   };

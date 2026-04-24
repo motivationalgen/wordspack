@@ -68,18 +68,21 @@ export function useAuth() {
       role: "admin",
       createdAt: Date.now(),
     };
-    const next = [...admins, admin];
-    setAdmins(next);
-    localStorage.setItem(ADMINS_KEY, JSON.stringify(next));
-  }, [admins]);
+    setAdmins((prevAdmins) => {
+      const next = [...prevAdmins, admin];
+      localStorage.setItem(ADMINS_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
 
   const removeAdmin = useCallback((id: string) => {
-    if (admins.length <= 1) return false; // Prevent deleting the last admin
-    const next = admins.filter((a) => a.id !== id);
+    const currentAdmins = JSON.parse(localStorage.getItem(ADMINS_KEY) || "[]");
+    if (currentAdmins.length <= 1) return false;
+    const next = currentAdmins.filter((a: AdminUser) => a.id !== id);
     setAdmins(next);
     localStorage.setItem(ADMINS_KEY, JSON.stringify(next));
     return true;
-  }, [admins]);
+  }, []);
 
   return { user, admins, login, logout, addAdmin, removeAdmin, loading };
 }

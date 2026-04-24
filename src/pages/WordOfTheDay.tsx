@@ -7,6 +7,7 @@ import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FAQ } from "@/components/FAQ";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("word-of-the-day")!;
 
@@ -20,6 +21,7 @@ const WordOfTheDay = () => {
   const { add } = useSessionHistory();
 
   useEffect(() => {
+    trackEvent(tool.name);
     add({ tool: tool.name, toolSlug: tool.slug, input: formatDate(new Date()), output: today.entry.word });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

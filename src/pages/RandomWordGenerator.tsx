@@ -9,6 +9,8 @@ import { generateRandomWords, type WordCategory } from "@/data/randomWords";
 import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { Shuffle } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
+import { useEffect } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("random-word-generator")!;
 
@@ -24,6 +26,10 @@ const RandomWordGenerator = () => {
   const [category, setCategory] = useState<WordCategory>("mixed");
   const [words, setWords] = useState<string[] | null>(null);
   const { add } = useSessionHistory();
+
+  useEffect(() => {
+    trackEvent(tool.name);
+  }, []);
 
   const handleGenerate = () => {
     const w = generateRandomWords(count, category);

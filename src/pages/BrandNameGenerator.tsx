@@ -9,6 +9,8 @@ import { generateBrandNames, type BrandStyle } from "@/data/brandNames";
 import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { Wand2 } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
+import { useEffect } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("brand-name-generator")!;
 
@@ -25,6 +27,10 @@ const BrandNameGenerator = () => {
   const [names, setNames] = useState<string[] | null>(null);
   const { add } = useSessionHistory();
 
+  useEffect(() => {
+    trackEvent(tool.name);
+  }, []);
+
   const handleGenerate = () => {
     const keywords = keyword
       .split(",")
@@ -39,7 +45,10 @@ const BrandNameGenerator = () => {
     }
     const result = merged.slice(0, 16);
     setNames(result);
-    add({ tool: tool.name, toolSlug: tool.slug, input: `${list.join(", ")} (${style})`, output: result.slice(0, 4).join(", ") + "…" });
+    const outputPreview = result.length > 4 
+      ? result.slice(0, 4).join(", ") + "…" 
+      : result.join(", ");
+    add({ tool: tool.name, toolSlug: tool.slug, input: `${list.join(", ")} (${style})`, output: outputPreview });
   };
 
   return (

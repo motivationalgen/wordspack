@@ -16,6 +16,15 @@ const WordCounter = lazy(() => import("./pages/WordCounter"));
 const WordOfTheDay = lazy(() => import("./pages/WordOfTheDay"));
 const BrandNameGenerator = lazy(() => import("./pages/BrandNameGenerator"));
 const TypingSpeedTest = lazy(() => import("./pages/TypingSpeedTest"));
+const ParaphrasingTool = lazy(() => import("./pages/ParaphrasingTool"));
+const GrammarChecker = lazy(() => import("./pages/GrammarChecker"));
+const TextSummarizer = lazy(() => import("./pages/TextSummarizer"));
+const SynonymFinder = lazy(() => import("./pages/SynonymFinder"));
+const AnagramSolver = lazy(() => import("./pages/AnagramSolver"));
+const RhymeGenerator = lazy(() => import("./pages/RhymeGenerator"));
+const CaseConverter = lazy(() => import("./pages/CaseConverter"));
+const ReadabilityChecker = lazy(() => import("./pages/ReadabilityChecker"));
+const SentenceRewriter = lazy(() => import("./pages/SentenceRewriter"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Login = lazy(() => import("./pages/Login"));
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -44,6 +53,15 @@ const App = () => (
                 <Route path="/word-of-the-day" element={<WordOfTheDay />} />
                 <Route path="/brand-name-generator" element={<BrandNameGenerator />} />
                 <Route path="/typing-speed-test" element={<TypingSpeedTest />} />
+                <Route path="/paraphrasing-tool" element={<ParaphrasingTool />} />
+                <Route path="/grammar-checker" element={<GrammarChecker />} />
+                <Route path="/text-summarizer" element={<TextSummarizer />} />
+                <Route path="/synonym-antonym-finder" element={<SynonymFinder />} />
+                <Route path="/anagram-solver" element={<AnagramSolver />} />
+                <Route path="/rhyme-generator" element={<RhymeGenerator />} />
+                <Route path="/case-converter" element={<CaseConverter />} />
+                <Route path="/readability-checker" element={<ReadabilityChecker />} />
+                <Route path="/sentence-rewriter" element={<SentenceRewriter />} />
                 <Route path="/login" element={<Login />} />
                 <Route
                   path="/Elora"

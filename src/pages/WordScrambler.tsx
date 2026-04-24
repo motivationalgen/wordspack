@@ -10,6 +10,7 @@ import { unscramble } from "@/data/dictionary";
 import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { Sparkles } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("word-scrambler")!;
 
@@ -19,6 +20,10 @@ const WordScrambler = () => {
   const [maxLen, setMaxLen] = useState(0);
   const [filter, setFilter] = useState<number>(0); // 0 = all
   const { add } = useSessionHistory();
+
+  useEffect(() => {
+    trackEvent(tool.name);
+  }, []);
 
   const handleSolve = () => {
     const r = unscramble(letters);

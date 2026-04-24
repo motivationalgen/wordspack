@@ -5,12 +5,17 @@ import { Label } from "@/components/ui/label";
 import { getToolBySlug } from "@/lib/tools";
 import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { FAQ } from "@/components/FAQ";
+import { trackEvent } from "@/lib/analytics";
 
 const tool = getToolBySlug("word-counter")!;
 
 const WordCounter = () => {
   const [text, setText] = useState("");
   const { add } = useSessionHistory();
+
+  useEffect(() => {
+    trackEvent(tool.name);
+  }, []);
 
   const stats = useMemo(() => {
     const trimmed = text.trim();
