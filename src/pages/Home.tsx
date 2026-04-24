@@ -38,7 +38,7 @@ const Home = () => {
             Smart tools for words, writing, and creativity
           </h1>
           <p className="max-w-xl mx-auto text-primary-foreground/85 text-base sm:text-lg">
-            Six free, fast, mobile-first tools to help you write better, think faster, and create smarter — no signup,
+            15+ free, fast, mobile-first tools to help you write better, think faster, and create smarter — no signup,
             no fluff.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
