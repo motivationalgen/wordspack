@@ -114,7 +114,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.font = "bold 32px 'Inter', sans-serif";
     ctx.fillText("WORDSPACK", width / 2, height - 100);
     ctx.font = "300 24px 'Inter', sans-serif";
-    ctx.fillText("wordspack.online", width / 2, height - 65);
+    ctx.fillText("wordspack.com", width / 2, height - 65);
   };
 
   const handleDownload = () => {
@@ -205,7 +205,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
               
               <div className="mt-12 flex flex-col items-center">
                 <span className="text-xs font-bold tracking-[0.2em] opacity-90">WORDSPACK</span>
-                <span className="text-[10px] opacity-70 mt-1 uppercase tracking-widest font-medium">wordspack.online</span>
+                <span className="text-[10px] opacity-70 mt-1 uppercase tracking-widest font-medium">wordspack.com</span>
               </div>
             </div>
           </div>
