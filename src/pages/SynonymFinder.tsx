@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, Search, Volume2, BookOpen } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
 
@@ -20,6 +21,7 @@ export default function SynonymFinder() {
   const [synonyms, setSynonyms] = useState<WordResult[]>([]);
   const [antonyms, setAntonyms] = useState<WordResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleSearch = async (termOverride?: string) => {
     const raw = (termOverride ?? input).trim();
@@ -59,10 +61,23 @@ export default function SynonymFinder() {
       const combinedSyns = Array.from(map.values()).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
 
-      setSynonyms(combinedSyns.slice(0, max));
-      setAntonyms((Array.isArray(antData) ? antData : []).slice(0, max));
+      const syns = combinedSyns.slice(0, max);
+      const ants = (Array.isArray(antData) ? antData : []).slice(0, max);
 
-      if (combinedSyns.length === 0 && antData.length === 0) {
+      setSynonyms(syns);
+      setAntonyms(ants);
+
+      // Record to session history (store concise output)
+      const out = [
+        ...(syns.slice(0, 8).map((s) => s.word)),
+        ...(ants.slice(0, 8).map((a) => a.word)),
+      ]
+        .slice(0, 12)
+        .join(", ");
+
+      add({ tool: tool.name, toolSlug: tool.slug, input: raw, output: out || "—" });
+
+      if (syns.length === 0 && ants.length === 0) {
         toast.info("No results found for that word.");
       }
     } catch (error) {
