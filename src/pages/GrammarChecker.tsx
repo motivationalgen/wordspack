@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, CheckCircle2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { aiService, GrammarEngine } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
@@ -27,6 +28,7 @@ export default function GrammarChecker() {
     fullReport: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleCheck = async () => {
     if (!input.trim()) return;
@@ -34,6 +36,7 @@ export default function GrammarChecker() {
     try {
       const data = await aiService.checkGrammar(input, engine);
       setResult(data);
+      add({ tool: tool.name, toolSlug: tool.slug, input: input.slice(0,200), output: (data.correctedText || "").slice(0,200) });
       if (data.errorsCount === 0) {
         toast.success("No grammar errors found!");
       } else {

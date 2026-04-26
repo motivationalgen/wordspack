@@ -10,8 +10,24 @@
     <meta name="author" content="Wordspack" />
     <link rel="canonical" href="/" />
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1979832052674759"
-     crossorigin="anonymous"></script>
+    <script>
+      // Load Google Ads only in production hostname to avoid Quirks Mode warnings from ad iframes during local/dev testing.
+      (function() {
+        try {
+          const host = location.hostname;
+          const productionHosts = ["www.wordspack.com", "wordspack.com"];
+          if (productionHosts.includes(host)) {
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1979832052674759';
+            s.crossOrigin = 'anonymous';
+            document.head.appendChild(s);
+          }
+        } catch (e) {
+          /* ignore in dev */
+        }
+      })();
+    </script>
     
     <meta property="og:type" content="website" />
 

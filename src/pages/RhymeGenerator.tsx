@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, Music, Volume2, Search } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
 
@@ -21,6 +22,7 @@ export default function RhymeGenerator() {
   const [perfectRhymes, setPerfectRhymes] = useState<RhymeResult[]>([]);
   const [nearRhymes, setNearRhymes] = useState<RhymeResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleSearch = async () => {
     if (!input.trim()) return;
@@ -36,7 +38,11 @@ export default function RhymeGenerator() {
       
       setPerfectRhymes(perfectData);
       setNearRhymes(nearData);
-      
+
+      // record to session history
+      const out = [...(perfectData || []).slice(0,8).map((w:any)=>w.word), ...(nearData || []).slice(0,8).map((w:any)=>w.word)].slice(0,12).join(", ");
+      add({ tool: tool.name, toolSlug: tool.slug, input: input, output: out || "—" });
+
       if (perfectData.length === 0 && nearData.length === 0) {
         toast.info("No rhymes found for that word.");
       }

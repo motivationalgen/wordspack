@@ -7,11 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Copy, Eraser, Volume2, Type } from "lucide-react";
 import { toast } from "sonner";
 import { TTSButton } from "@/components/TTSButton";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { FAQ } from "@/components/FAQ";
 
 export default function CaseConverter() {
   const tool = getToolBySlug("case-converter")!;
   const [input, setInput] = useState("");
+  const { add } = useSessionHistory();
 
   const handleTransform = (type: 'upper' | 'lower' | 'title' | 'sentence' | 'alternating') => {
     if (!input.trim()) return;
@@ -36,6 +38,7 @@ export default function CaseConverter() {
     }
     setInput(transformed);
     toast.success(`Converted to ${type} case!`);
+    add({ tool: tool.name, toolSlug: tool.slug, input: type, output: transformed.slice(0, 200) });
   };
 
   const handleClear = () => setInput("");

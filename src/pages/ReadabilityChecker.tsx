@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, BarChart3, Info } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { calculateReadability } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
@@ -15,11 +16,13 @@ export default function ReadabilityChecker() {
   const tool = getToolBySlug("readability-checker")!;
   const [input, setInput] = useState("");
   const [stats, setStats] = useState<ReturnType<typeof calculateReadability> | null>(null);
+  const { add } = useSessionHistory();
 
   const handleCheck = () => {
     if (!input.trim()) return;
     const result = calculateReadability(input);
     setStats(result);
+    add({ tool: tool.name, toolSlug: tool.slug, input: input.slice(0,200), output: `Score: ${result.score}, Level: ${result.level}` });
   };
 
   const handleClear = () => {

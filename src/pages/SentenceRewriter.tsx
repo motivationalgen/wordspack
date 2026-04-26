@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, PenLine, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { aiService, RewriteTone } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
@@ -23,6 +24,7 @@ export default function SentenceRewriter() {
   const [output, setOutput] = useState("");
   const [tone, setTone] = useState<RewriteTone>("professional");
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleRewrite = async () => {
     if (!input.trim()) return;
@@ -31,6 +33,7 @@ export default function SentenceRewriter() {
       const result = await aiService.rewrite(input, tone);
       setOutput(result);
       toast.success("Rewritten successfully!");
+      add({ tool: tool.name, toolSlug: tool.slug, input: input.slice(0,200), output: result.slice(0,200) });
     } catch (error) {
       toast.error("Failed to rewrite text. Please try again.");
     } finally {

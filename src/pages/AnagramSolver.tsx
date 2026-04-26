@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, Play, RefreshCw, Volume2 } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { DICTIONARY } from "@/data/dictionary";
 import { solveAnagrams } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
@@ -17,6 +18,7 @@ export default function AnagramSolver() {
   const [input, setInput] = useState("");
   const [results, setResults] = useState<string[]>([]);
   const [isSolving, setIsSolving] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleSolve = () => {
     if (!input.trim()) return;
@@ -25,6 +27,7 @@ export default function AnagramSolver() {
     setTimeout(() => {
       const found = solveAnagrams(input, DICTIONARY);
       setResults(found);
+      add({ tool: tool.name, toolSlug: tool.slug, input: input, output: found.slice(0, 8).join(", ") || `${found.length} results` });
       setIsSolving(false);
       if (found.length === 0) {
         toast.info("No anagrams found in our dictionary.");

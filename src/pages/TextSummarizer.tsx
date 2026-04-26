@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, ListFilter, FileText } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { aiService, SummarizeMode } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
@@ -23,6 +24,7 @@ export default function TextSummarizer() {
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState<SummarizeMode>("medium");
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleSummarize = async () => {
     if (!input.trim()) return;
@@ -31,6 +33,7 @@ export default function TextSummarizer() {
       const result = await aiService.summarize(input, mode);
       setOutput(result);
       toast.success("Summary generated!");
+      add({ tool: tool.name, toolSlug: tool.slug, input: input.slice(0,200), output: result.slice(0,300) });
     } catch (error) {
       toast.error("Failed to generate summary. Please try again.");
     } finally {

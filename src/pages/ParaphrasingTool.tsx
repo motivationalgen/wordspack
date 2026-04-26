@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Copy, Eraser, RefreshCw, Sparkles, Volume2 } from "lucide-react";
 import { toast } from "sonner";
+import { useSessionHistory } from "@/hooks/useSessionHistory";
 import { aiService, ParaphraseMode } from "@/lib/ai";
 import { TTSButton } from "@/components/TTSButton";
 import { FAQ } from "@/components/FAQ";
@@ -23,6 +24,7 @@ export default function ParaphrasingTool() {
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState<ParaphraseMode>("standard");
   const [isLoading, setIsLoading] = useState(false);
+  const { add } = useSessionHistory();
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
@@ -31,6 +33,7 @@ export default function ParaphrasingTool() {
       const result = await aiService.paraphrase(input, mode);
       setOutput(result);
       toast.success("Text paraphrased successfully!");
+      add({ tool: tool.name, toolSlug: tool.slug, input: input.slice(0,200), output: result.slice(0,200) });
     } catch (error) {
       toast.error("Failed to paraphrase text. Please try again.");
     } finally {
