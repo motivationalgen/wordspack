@@ -62,19 +62,41 @@ export default function SynonymFinder() {
 
 
       const syns = combinedSyns.slice(0, max);
-      const ants = (Array.isArray(antData) ? antData : []).slice(0, max);
+
+      // Expand antonyms by also fetching synonyms of the antonyms (this surfaces related opposite words)
+      const initialAnts = (Array.isArray(antData) ? antData : []).slice(0, max);
+      const ANT_EXPAND_LIMIT = Math.min(8, initialAnts.length);
+      let expandedAnts: WordResult[] = [];
+
+      if (ANT_EXPAND_LIMIT > 0) {
+        try {
+          const expandPromises = initialAnts.slice(0, ANT_EXPAND_LIMIT).map((a) =>
+            fetch(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(a.word)}&max=20`).then((r) => safeJson(r))
+          );
+          const expandResults = await Promise.all(expandPromises);
+          expandedAnts = expandResults.flat();
+        } catch {
+          expandedAnts = [];
+        }
+      }
+
+      // Combine initial antonyms + expanded antonyms, dedupe and sort by score
+      const antMap = new Map<string, WordResult>();
+      [...initialAnts, ...expandedAnts].forEach((w) => {
+        if (!w || typeof w.word !== "string") return;
+        const existing = antMap.get(w.word);
+        if (!existing || (w.score ?? 0) > (existing.score ?? 0)) {
+          antMap.set(w.word, w);
+        }
+      });
+
+      const ants = Array.from(antMap.values()).sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, max);
 
       setSynonyms(syns);
       setAntonyms(ants);
 
       // Record to session history (store concise output)
-      const out = [
-        ...(syns.slice(0, 8).map((s) => s.word)),
-        ...(ants.slice(0, 8).map((a) => a.word)),
-      ]
-        .slice(0, 12)
-        .join(", ");
-
+      const out = [...syns.slice(0, 8).map((s) => s.word), ...ants.slice(0, 8).map((a) => a.word)].slice(0, 12).join(", ");
       add({ tool: tool.name, toolSlug: tool.slug, input: raw, output: out || "—" });
 
       if (syns.length === 0 && ants.length === 0) {
