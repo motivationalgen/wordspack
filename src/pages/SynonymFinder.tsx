@@ -25,19 +25,35 @@ export default function SynonymFinder() {
     if (!input.trim()) return;
     setIsLoading(true);
     try {
-      // Fetch synonyms and antonyms from Datamuse API
-      const [synRes, antRes] = await Promise.all([
-        fetch(`https://api.datamuse.com/words?rel_syn=${input.trim()}&max=20`),
-        fetch(`https://api.datamuse.com/words?rel_ant=${input.trim()}&max=20`)
+      // Improved fetching: try exact related synonyms, "means like" matches, and antonyms
+      const term = encodeURIComponent(input.trim());
+      const max = 50;
+
+      const [relSynRes, mlRes, antRes] = await Promise.all([
+        fetch(`https://api.datamuse.com/words?rel_syn=${term}&max=${max}`),
+        fetch(`https://api.datamuse.com/words?ml=${term}&max=${max}`),
+        fetch(`https://api.datamuse.com/words?rel_ant=${term}&max=${max}`),
       ]);
-      
-      const synData = await synRes.json();
-      const antData = await antRes.json();
-      
-      setSynonyms(synData);
-      setAntonyms(antData);
-      
-      if (synData.length === 0 && antData.length === 0) {
+
+      const relSynData: WordResult[] = await relSynRes.json();
+      const mlData: WordResult[] = await mlRes.json();
+      const antData: WordResult[] = await antRes.json();
+
+      // Combine and deduplicate synonyms (prefer rel_syn then ml), keep highest score
+      const map = new Map<string, WordResult>();
+      [...relSynData, ...mlData].forEach((w) => {
+        const existing = map.get(w.word);
+        if (!existing || (w.score ?? 0) > (existing.score ?? 0)) {
+          map.set(w.word, w);
+        }
+      });
+
+      const combinedSyns = Array.from(map.values()).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+
+      setSynonyms(combinedSyns.slice(0, max));
+      setAntonyms(antData.slice(0, max));
+
+      if (combinedSyns.length === 0 && antData.length === 0) {
         toast.info("No results found for that word.");
       }
     } catch (error) {
@@ -61,6 +77,7 @@ export default function SynonymFinder() {
 
   return (
     <ToolShell
+      fullWidth
       tool={tool}
       title="Synonym & Antonym Finder"
       description="Find the perfect word with our instant thesaurus and antonym search."
@@ -189,7 +206,7 @@ export default function SynonymFinder() {
             items={[
               {
                 question: "How many words can I find?",
-                answer: "We provide up to 20 of the most relevant synonyms and antonyms for any given word."
+                answer: "We provide up to 50 of the most relevant synonyms and antonyms for any given word."
               },
               {
                 question: "Can I search for phrases?",

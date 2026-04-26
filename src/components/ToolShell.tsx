@@ -17,6 +17,7 @@ type Props = {
   hasOutput?: boolean;
   seoContent: ReactNode;
   bottomSection?: ReactNode;
+  fullWidth?: boolean;
 };
 
 export const ToolShell = ({
@@ -30,6 +31,7 @@ export const ToolShell = ({
   hasOutput = false,
   seoContent,
   bottomSection,
+  fullWidth = false,
 }: Props) => {
   useEffect(() => {
     trackEvent(tool.name);
@@ -51,7 +53,7 @@ export const ToolShell = ({
           description: metaDescription,
         }}
       />
-      <div className="container grid lg:grid-cols-[1fr_300px] gap-8 pt-4">
+      <div className={`container grid ${fullWidth ? "lg:grid-cols-1" : "lg:grid-cols-[1fr_300px]"} gap-8 pt-4`}>
         <article className="min-w-0">
           <header className="mb-5">
             <div className="flex items-center gap-3 mb-2">
@@ -91,11 +93,13 @@ export const ToolShell = ({
           <InternalLinks excludeSlug={tool.slug} />
         </article>
 
-        <aside className="hidden lg:block">
-          <div className="sticky top-20">
-            <AdSlot variant="sidebar" />
-          </div>
-        </aside>
+        {!fullWidth && (
+          <aside className="hidden lg:block">
+            <div className="sticky top-20">
+              <AdSlot variant="sidebar" />
+            </div>
+          </aside>
+        )}
       </div>
     </>
   );
