@@ -21,12 +21,13 @@ export default function SynonymFinder() {
   const [antonyms, setAntonyms] = useState<WordResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async () => {
-    if (!input.trim()) return;
+  const handleSearch = async (termOverride?: string) => {
+    const raw = (termOverride ?? input).trim();
+    if (!raw) return;
     setIsLoading(true);
     try {
       // Improved fetching: try exact related synonyms, "means like" matches, and antonyms
-      const term = encodeURIComponent(input.trim());
+      const term = encodeURIComponent(raw);
       const max = 50;
 
       const [relSynRes, mlRes, antRes] = await Promise.all([
@@ -35,13 +36,20 @@ export default function SynonymFinder() {
         fetch(`https://api.datamuse.com/words?rel_ant=${term}&max=${max}`),
       ]);
 
-      const relSynData: WordResult[] = await relSynRes.json();
-      const mlData: WordResult[] = await mlRes.json();
-      const antData: WordResult[] = await antRes.json();
+      const safeJson = async (res: Response) => {
+        if (!res || !res.ok) return [] as any[];
+        const j = await res.json().catch(() => []);
+        return Array.isArray(j) ? j : [];
+      };
+
+      const relSynData: WordResult[] = await safeJson(relSynRes);
+      const mlData: WordResult[] = await safeJson(mlRes);
+      const antData: WordResult[] = await safeJson(antRes);
 
       // Combine and deduplicate synonyms (prefer rel_syn then ml), keep highest score
       const map = new Map<string, WordResult>();
       [...relSynData, ...mlData].forEach((w) => {
+        if (!w || typeof w.word !== "string") return;
         const existing = map.get(w.word);
         if (!existing || (w.score ?? 0) > (existing.score ?? 0)) {
           map.set(w.word, w);
@@ -50,8 +58,9 @@ export default function SynonymFinder() {
 
       const combinedSyns = Array.from(map.values()).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
+
       setSynonyms(combinedSyns.slice(0, max));
-      setAntonyms(antData.slice(0, max));
+      setAntonyms((Array.isArray(antData) ? antData : []).slice(0, max));
 
       if (combinedSyns.length === 0 && antData.length === 0) {
         toast.info("No results found for that word.");
@@ -69,10 +78,14 @@ export default function SynonymFinder() {
     setAntonyms([]);
   };
 
-  const handleCopy = (words: WordResult[]) => {
-    if (words.length === 0) return;
-    navigator.clipboard.writeText(words.map(w => w.word).join(", "));
-    toast.success("Copied to clipboard!");
+  const handleCopy = async (words: WordResult[]) => {
+    if (!words || words.length === 0) return;
+    try {
+      await navigator.clipboard.writeText(words.map((w) => w.word).join(", "));
+      toast.success("Copied to clipboard!");
+    } catch (e) {
+      toast.error("Unable to copy to clipboard.");
+    }
   };
 
   return (
@@ -112,7 +125,7 @@ export default function SynonymFinder() {
                     {synonyms.map((item) => (
                       <button
                         key={item.word}
-                        onClick={() => { setInput(item.word); handleSearch(); }}
+                        onClick={() => { setInput(item.word); handleSearch(item.word); }}
                         className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg font-medium text-sm border border-primary/20 hover:bg-primary/20 transition-colors"
                       >
                         {item.word}
@@ -138,7 +151,7 @@ export default function SynonymFinder() {
                     {antonyms.map((item) => (
                       <button
                         key={item.word}
-                        onClick={() => { setInput(item.word); handleSearch(); }}
+                        onClick={() => { setInput(item.word); handleSearch(item.word); }}
                         className="px-3 py-1.5 bg-destructive/5 text-destructive rounded-lg font-medium text-sm border border-destructive/10 hover:bg-destructive/10 transition-colors"
                       >
                         {item.word}
