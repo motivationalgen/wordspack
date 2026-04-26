@@ -179,10 +179,13 @@ export default function SynonymFinder() {
                       <BookOpen className="h-5 w-5" />
                       Antonyms
                     </h3>
-                    <Button variant="outline" size="sm" onClick={() => handleCopy(antonyms)} className="h-8 px-2 gap-1.5">
-                      <Copy className="h-4 w-4" />
-                      <span className="text-xs font-medium">Copy All</span>
-                    </Button>
+                    <div className="flex gap-2">
+                      <TTSButton text={`Antonyms for ${input}: ${antonyms.map(w => w.word).join(", ")}`} />
+                      <Button variant="outline" size="sm" onClick={() => handleCopy(antonyms)} className="h-8 px-2 gap-1.5">
+                        <Copy className="h-4 w-4" />
+                        <span className="text-xs font-medium">Copy All</span>
+                      </Button>
+                    </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {antonyms.map((item) => (
@@ -229,28 +232,46 @@ export default function SynonymFinder() {
       }
       seoContent={
         <>
-          <h2>What is a Synonym & Antonym Finder?</h2>
+          <h2><strong>What is a Synonym & Antonym Finder?</strong></h2>
           <p>
-            A synonym and antonym finder is an essential tool for any writer looking to expand their 
-            vocabulary and find more precise words for their context. A synonym is a word with the same 
-            or similar meaning, while an antonym is a word with the opposite meaning.
+            A synonym and antonym finder is an essential tool for any writer looking to expand their
+            vocabulary and find more precise words for their context. A synonym is a word with the same
+            or similar meaning, while an antonym is a word with the opposite meaning. Our tool surfaces
+            nuanced alternatives, near-synonyms, and related antonyms to help you choose the clearest
+            wording for any sentence or headline.
           </p>
-          
-          <h2>How to use our Thesaurus Tool</h2>
+
+          <h2><strong>How to use our Thesaurus Tool</strong></h2>
           <ol>
             <li>Type a single word into the search box.</li>
             <li>Press Enter or click the search icon.</li>
             <li>Browse the lists of synonyms and antonyms.</li>
-            <li>Click on any result to immediately search for that word's synonyms.</li>
+            <li>Click on any result to immediately search for that word's synonyms or antonyms.</li>
           </ol>
 
-          <h2>Benefits of using a Thesaurus</h2>
+          <h2><strong>Benefits of using a Thesaurus</strong></h2>
           <ul>
             <li><strong>Improve Writing Quality:</strong> Avoid using the same words repeatedly.</li>
             <li><strong>Be More Precise:</strong> Find the word that captures the exact nuance you need.</li>
             <li><strong>Learn New Words:</strong> Expand your vocabulary naturally as you write.</li>
             <li><strong>Better SEO:</strong> Use varied keywords to help your content reach more people.</li>
           </ul>
+
+          <h2><strong>Why our Antonym Coverage is Stronger</strong></h2>
+          <p>
+            Antonyms can be sparse in many datasets. To improve coverage, this tool queries multiple
+            relationships: direct antonyms from Datamuse and related opposites discovered by expanding
+            antonyms through their synonyms. This approach surfaces broader antonym sets and contextual
+            opposites that are useful for editing, rewriting, and headline optimization.
+          </p>
+
+          <h2><strong>SEO & Use Cases</strong></h2>
+          <p>
+            Use this tool to optimize titles, meta descriptions, and on-page copy by testing alternate
+            word choices. Try searching intent-driven keywords like "fast, quick, rapid" to discover
+            synonyms and antonyms that match user intent. Our tool is ideal for content writers,
+            marketers, and SEO specialists who want to find high-impact variants and long-tail keywords.
+          </p>
 
           <FAQ
             items={[
@@ -264,7 +285,7 @@ export default function SynonymFinder() {
               },
               {
                 question: "Where do the results come from?",
-                answer: "We use the Datamuse API, which provides high-quality results from a massive linguistic database."
+                answer: "We use the Datamuse API, complemented by local expansion logic to surface additional antonyms and related words."
               }
             ]}
           />
