@@ -128,7 +128,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.textBaseline = "middle";
 
 
-    ctx.font = "600 28px Inter";
+    ctx.font = "600 58px Inter";
 ctx.globalAlpha = 0.7;
 ctx.fillText("WORD OF THE DAY", width / 2, 120);
 ctx.globalAlpha = 1;
