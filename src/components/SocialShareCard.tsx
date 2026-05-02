@@ -127,6 +127,12 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
+
+    ctx.font = "600 28px Inter";
+ctx.globalAlpha = 0.7;
+ctx.fillText("WORD OF THE DAY", width / 2, 120);
+ctx.globalAlpha = 1;
+
     // Word
     ctx.font = "bold 120px 'Inter', sans-serif";
     ctx.fillText(word, width / 2, height / 2 - 120);
@@ -259,6 +265,9 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
             )}
 
             <div className="relative z-10 flex flex-col items-center justify-center">
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase opacity-70 mb-4 font-semibold">
+  Word of the Day
+</p>
               <h4 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">{word}</h4>
               <p className="text-lg sm:text-xl font-medium mb-8 leading-relaxed opacity-95">{meaning}</p>
               <p className="text-sm sm:text-base italic opacity-80 max-w-[80%] leading-relaxed font-serif">"{example}"</p>
