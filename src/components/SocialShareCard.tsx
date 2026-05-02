@@ -120,7 +120,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.stroke();
   }
 
-  ctx.globalAlpha = 0.25;
+  ctx.globalAlpha = 1;
 }
 
     // Set high resolution
