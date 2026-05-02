@@ -76,9 +76,26 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    else if (bgStyle === "texture") {
+   else if (bgStyle === "texture") {
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, width, height);
+
+  // Strong visible grain
+  for (let i = 0; i < 20000; i++) {
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(x, y, 2, 2);
+  }
+
+  // Soft lighting
+  const grad = ctx.createLinearGradient(0, 0, width, height);
+  grad.addColorStop(0, "rgba(255,255,255,0.1)");
+  grad.addColorStop(1, "rgba(0,0,0,0.15)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, width, height);
+}
 
   // Add noise texture
   const imageData = ctx.createImageData(width, height);
@@ -242,27 +259,30 @@ ctx.globalAlpha = 1;
             <ImageIcon className="w-5 h-5 text-primary" />
             Social Media Preview
           </h3>
+          
          {bgStyle === "texture" && (
-  <>
-    {/* Grain */}
+  <div className="absolute inset-0 z-0 pointer-events-none">
+    
+    {/* Visible grain dots */}
     <div
-      className="absolute inset-0 opacity-20"
+      className="absolute inset-0"
       style={{
         backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
-        backgroundSize: "3px 3px"
+          "radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px)",
+        backgroundSize: "4px 4px",
+        opacity: 0.4
       }}
     />
 
-    {/* Soft overlay */}
+    {/* Light overlay for depth */}
     <div
-      className="absolute inset-0 opacity-10"
+      className="absolute inset-0"
       style={{
         background:
-          "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.1))"
+          "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.15))"
       }}
     />
-  </>
+  </div>
 )}
           <div 
             ref={previewRef}
