@@ -188,21 +188,27 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
         }}
       >
         {bgStyle === "texture" && (
-          <>
-            <div className="absolute inset-0 opacity-20 mix-blend-overlay"
-              style={{
-                backgroundImage:
-                  "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23n)\"/></svg>')"
-              }}
-            />
-            <div className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 40px)"
-              }}
-            />
-          </>
-        )}
+  <>
+    {/* Grain */}
+    <div
+      className="absolute inset-0 opacity-20"
+      style={{
+        backgroundImage:
+          "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
+        backgroundSize: "3px 3px"
+      }}
+    />
+
+    {/* Soft overlay */}
+    <div
+      className="absolute inset-0 opacity-10"
+      style={{
+        background:
+          "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.1))"
+      }}
+    />
+  </>
+)}
 
         <div className="text-center z-10">
           <h2 className="text-4xl font-bold">{word}</h2>
