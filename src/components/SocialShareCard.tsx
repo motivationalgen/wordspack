@@ -80,7 +80,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.stroke();
   }
 
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = 0.25;
 }
 
     // Set high resolution
