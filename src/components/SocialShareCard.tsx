@@ -29,6 +29,29 @@ const PRESET_COLORS = [
 { bg: "#D946EF", text: "#FFFFFF" }, // Fuchsia
 { bg: "#84CC16", text: "#000000" }, // Lime
 { bg: "#06B6D4", text: "#000000" }, // Cyan
+  { bg: "#1D4ED8", text: "#FFFFFF" }, // Blue (strong)
+{ bg: "#9333EA", text: "#FFFFFF" }, // Deep Purple
+{ bg: "#F43F5E", text: "#FFFFFF" }, // Rose
+{ bg: "#EA580C", text: "#FFFFFF" }, // Burnt Orange
+{ bg: "#0D9488", text: "#FFFFFF" }, // Dark Teal
+{ bg: "#4F46E5", text: "#FFFFFF" }, // Indigo Deep
+{ bg: "#16A34A", text: "#FFFFFF" }, // Green Rich
+{ bg: "#CA8A04", text: "#000000" }, // Mustard
+{ bg: "#475569", text: "#FFFFFF" }, // Slate Gray
+{ bg: "#1E40AF", text: "#FFFFFF" }, // Royal Blue
+{ bg: "#9F1239", text: "#FFFFFF" }, // Wine Red
+{ bg: "#020617", text: "#E2E8F0" }, // Almost Black
+{ bg: "#C026D3", text: "#FFFFFF" }, // Magenta
+{ bg: "#65A30D", text: "#000000" }, // Olive
+{ bg: "#0891B2", text: "#FFFFFF" }, // Cyan Deep
+  { bg: "#FF6B6B", text: "#FFFFFF" }, // Soft Red
+{ bg: "#6C5CE7", text: "#FFFFFF" }, // Neon Purple
+{ bg: "#00CEC9", text: "#000000" }, // Aqua
+{ bg: "#FAB1A0", text: "#000000" }, // Peach
+{ bg: "#2D3436", text: "#FFFFFF" }, // Charcoal
+{ bg: "#FD79A8", text: "#000000" }, // Bubblegum Pink
+{ bg: "#55EFC4", text: "#000000" }, // Mint
+{ bg: "#FFEAA7", text: "#000000" }, // Soft Yellow
 ];
 
 export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps) => {
@@ -265,9 +288,10 @@ ctx.globalAlpha = 1;
             )}
 
             <div className="relative z-10 flex flex-col items-center justify-center">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase opacity-70 mb-4 font-semibold">
+            <span className="px-3 py-1 text-xs rounded-full bg-black/20 backdrop-blur-sm mb-4">
   Word of the Day
-</p>
+</span>
+              <div className="w-12 h-[2px] bg-current opacity-40 mb-4" />
               <h4 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">{word}</h4>
               <p className="text-lg sm:text-xl font-medium mb-8 leading-relaxed opacity-95">{meaning}</p>
               <p className="text-sm sm:text-base italic opacity-80 max-w-[80%] leading-relaxed font-serif">"{example}"</p>
