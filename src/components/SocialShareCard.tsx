@@ -15,43 +15,43 @@ type BgStyle = "solid" | "gradient" | "mesh" | "elegant" | "texture";
 
 const PRESET_COLORS = [
   { bg: "#0EA5E9", text: "#FFFFFF" }, // Sky Blue
-{ bg: "#6366F1", text: "#FFFFFF" }, // Indigo
-{ bg: "#EC4899", text: "#FFFFFF" }, // Pink
-{ bg: "#F97316", text: "#000000" }, // Orange
-{ bg: "#14B8A6", text: "#FFFFFF" }, // Teal
-{ bg: "#A855F7", text: "#FFFFFF" }, // Purple
-{ bg: "#22C55E", text: "#000000" }, // Green (brighter)
-{ bg: "#EAB308", text: "#000000" }, // Amber
-{ bg: "#64748B", text: "#FFFFFF" }, // Cool Gray
-{ bg: "#334155", text: "#FFFFFF" }, // Dark Slate
-{ bg: "#BE123C", text: "#FFFFFF" }, // Rose Red
-{ bg: "#0F172A", text: "#F1F5F9" }, // Deep Navy
-{ bg: "#D946EF", text: "#FFFFFF" }, // Fuchsia
-{ bg: "#84CC16", text: "#000000" }, // Lime
-{ bg: "#06B6D4", text: "#000000" }, // Cyan
+  { bg: "#6366F1", text: "#FFFFFF" }, // Indigo
+  { bg: "#EC4899", text: "#FFFFFF" }, // Pink
+  { bg: "#F97316", text: "#000000" }, // Orange
+  { bg: "#14B8A6", text: "#FFFFFF" }, // Teal
+  { bg: "#A855F7", text: "#FFFFFF" }, // Purple
+  { bg: "#22C55E", text: "#000000" }, // Green (brighter)
+  { bg: "#EAB308", text: "#000000" }, // Amber
+  { bg: "#64748B", text: "#FFFFFF" }, // Cool Gray
+  { bg: "#334155", text: "#FFFFFF" }, // Dark Slate
+  { bg: "#BE123C", text: "#FFFFFF" }, // Rose Red
+  { bg: "#0F172A", text: "#F1F5F9" }, // Deep Navy
+  { bg: "#D946EF", text: "#FFFFFF" }, // Fuchsia
+  { bg: "#84CC16", text: "#000000" }, // Lime
+  { bg: "#06B6D4", text: "#000000" }, // Cyan
   { bg: "#1D4ED8", text: "#FFFFFF" }, // Blue (strong)
-{ bg: "#9333EA", text: "#FFFFFF" }, // Deep Purple
-{ bg: "#F43F5E", text: "#FFFFFF" }, // Rose
-{ bg: "#EA580C", text: "#FFFFFF" }, // Burnt Orange
-{ bg: "#0D9488", text: "#FFFFFF" }, // Dark Teal
-{ bg: "#4F46E5", text: "#FFFFFF" }, // Indigo Deep
-{ bg: "#16A34A", text: "#FFFFFF" }, // Green Rich
-{ bg: "#CA8A04", text: "#000000" }, // Mustard
-{ bg: "#475569", text: "#FFFFFF" }, // Slate Gray
-{ bg: "#1E40AF", text: "#FFFFFF" }, // Royal Blue
-{ bg: "#9F1239", text: "#FFFFFF" }, // Wine Red
-{ bg: "#020617", text: "#E2E8F0" }, // Almost Black
-{ bg: "#C026D3", text: "#FFFFFF" }, // Magenta
-{ bg: "#65A30D", text: "#000000" }, // Olive
-{ bg: "#0891B2", text: "#FFFFFF" }, // Cyan Deep
+  { bg: "#9333EA", text: "#FFFFFF" }, // Deep Purple
+  { bg: "#F43F5E", text: "#FFFFFF" }, // Rose
+  { bg: "#EA580C", text: "#FFFFFF" }, // Burnt Orange
+  { bg: "#0D9488", text: "#FFFFFF" }, // Dark Teal
+  { bg: "#4F46E5", text: "#FFFFFF" }, // Indigo Deep
+  { bg: "#16A34A", text: "#FFFFFF" }, // Green Rich
+  { bg: "#CA8A04", text: "#000000" }, // Mustard
+  { bg: "#475569", text: "#FFFFFF" }, // Slate Gray
+  { bg: "#1E40AF", text: "#FFFFFF" }, // Royal Blue
+  { bg: "#9F1239", text: "#FFFFFF" }, // Wine Red
+  { bg: "#020617", text: "#E2E8F0" }, // Almost Black
+  { bg: "#C026D3", text: "#FFFFFF" }, // Magenta
+  { bg: "#65A30D", text: "#000000" }, // Olive
+  { bg: "#0891B2", text: "#FFFFFF" }, // Cyan Deep
   { bg: "#FF6B6B", text: "#FFFFFF" }, // Soft Red
-{ bg: "#6C5CE7", text: "#FFFFFF" }, // Neon Purple
-{ bg: "#00CEC9", text: "#000000" }, // Aqua
-{ bg: "#FAB1A0", text: "#000000" }, // Peach
-{ bg: "#2D3436", text: "#FFFFFF" }, // Charcoal
-{ bg: "#FD79A8", text: "#000000" }, // Bubblegum Pink
-{ bg: "#55EFC4", text: "#000000" }, // Mint
-{ bg: "#FFEAA7", text: "#000000" }, // Soft Yellow
+  { bg: "#6C5CE7", text: "#FFFFFF" }, // Neon Purple
+  { bg: "#00CEC9", text: "#000000" }, // Aqua
+  { bg: "#FAB1A0", text: "#000000" }, // Peach
+  { bg: "#2D3436", text: "#FFFFFF" }, // Charcoal
+  { bg: "#FD79A8", text: "#000000" }, // Bubblegum Pink
+  { bg: "#55EFC4", text: "#000000" }, // Mint
+  { bg: "#FFEAA7", text: "#000000" }, // Soft Yellow
 ];
 
 export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps) => {
@@ -62,7 +62,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
   const previewRef = useRef<HTMLDivElement>(null);
 
   const randomize = () => {
-   const styles: BgStyle[] = ["solid", "gradient", "mesh", "elegant", "texture"];
+    const styles: BgStyle[] = ["solid", "gradient", "mesh", "elegant", "texture"];
     const randomStyle = styles[Math.floor(Math.random() * styles.length)];
     const randomPreset = PRESET_COLORS[Math.floor(Math.random() * PRESET_COLORS.length)];
     
@@ -71,57 +71,48 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     setTextColor(randomPreset.text);
   };
 
+  // Helper: darken/lighten color
+  const adjustColor = (hex: string, amt: number) => {
+    let usePound = false;
+    if (hex[0] === "#") {
+      hex = hex.slice(1);
+      usePound = true;
+    }
+    const num = parseInt(hex, 16);
+    let r = ((num >> 16) & 0xFF) + amt;
+    if (r > 255) r = 255; else if (r < 0) r = 0;
+    let g = ((num >> 8) & 0xFF) + amt;
+    if (g > 255) g = 255; else if (g < 0) g = 0;
+    let b = (num & 0xFF) + amt;
+    if (b > 255) b = 255; else if (b < 0) b = 0;
+    return (usePound ? "#" : "") + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+  };
+
+  // Helper: Wrap text for canvas
+  const wrapText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number) => {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  };
+
   const drawToCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-   else if (bgStyle === "texture") {
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, width, height);
-
-  // Strong visible grain
-  for (let i = 0; i < 20000; i++) {
-    const x = Math.random() * width;
-    const y = Math.random() * height;
-
-    ctx.fillStyle = "rgba(0,0,0,0.08)";
-    ctx.fillRect(x, y, 2, 2);
-  }
-
-  // Soft lighting
-  const grad = ctx.createLinearGradient(0, 0, width, height);
-  grad.addColorStop(0, "rgba(255,255,255,0.1)");
-  grad.addColorStop(1, "rgba(0,0,0,0.15)");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, width, height);
-}
-
-  // Add noise texture
-  const imageData = ctx.createImageData(width, height);
-  for (let i = 0; i < imageData.data.length; i += 4) {
-    const noise = Math.random() * 30; // grain strength
-    imageData.data[i] = noise;     // R
-    imageData.data[i + 1] = noise; // G
-    imageData.data[i + 2] = noise; // B
-    imageData.data[i + 3] = 40;    // Alpha (very subtle)
-  }
-  ctx.putImageData(imageData, 0, 0);
-
-  // Optional overlay pattern (diagonal lines)
-  ctx.strokeStyle = adjustColor(bgColor, -40);
-  ctx.globalAlpha = 0.15;
-  ctx.lineWidth = 1;
-
-  for (let i = -height; i < width; i += 40) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i + height, height);
-    ctx.stroke();
-  }
-
-  ctx.globalAlpha = 1;
-}
 
     // Set high resolution
     const width = 1080;
@@ -160,6 +151,50 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
         ctx.strokeRect(60, 60, width - 120, height - 120);
         ctx.globalAlpha = 1.0;
       }
+    } else if (bgStyle === "texture") {
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, width, height);
+
+      // Strong visible grain
+      for (let i = 0; i < 20000; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+
+        ctx.fillStyle = "rgba(0,0,0,0.08)";
+        ctx.fillRect(x, y, 2, 2);
+      }
+
+      // Soft lighting
+      const grad = ctx.createLinearGradient(0, 0, width, height);
+      grad.addColorStop(0, "rgba(255,255,255,0.1)");
+      grad.addColorStop(1, "rgba(0,0,0,0.15)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Add noise texture
+      const imageData = ctx.createImageData(width, height);
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        const noise = Math.random() * 30; // grain strength
+        imageData.data[i] = noise;     // R
+        imageData.data[i + 1] = noise; // G
+        imageData.data[i + 2] = noise; // B
+        imageData.data[i + 3] = 40;    // Alpha (very subtle)
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      // Optional overlay pattern (diagonal lines)
+      ctx.strokeStyle = adjustColor(bgColor, -40);
+      ctx.globalAlpha = 0.15;
+      ctx.lineWidth = 1;
+
+      for (let i = -height; i < width; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i + height, height);
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1;
     }
 
     // 2. Draw Text
@@ -167,11 +202,10 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-
     ctx.font = "600 58px Inter";
-ctx.globalAlpha = 0.7;
-ctx.fillText("WORD OF THE DAY", width / 2, 120);
-ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.7;
+    ctx.fillText("WORD OF THE DAY", width / 2, 120);
+    ctx.globalAlpha = 1;
 
     // Word
     ctx.font = "bold 120px 'Inter', sans-serif";
@@ -213,43 +247,6 @@ ctx.globalAlpha = 1;
     toast.success("Image generated and download started!");
   };
 
-  // Helper: Wrap text for canvas
-  const wrapText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number) => {
-    const words = text.split(" ");
-    const lines = [];
-    let currentLine = words[0];
-
-    for (let i = 1; i < words.length; i++) {
-      const word = words[i];
-      const width = ctx.measureText(currentLine + " " + word).width;
-      if (width < maxWidth) {
-        currentLine += " " + word;
-      } else {
-        lines.push(currentLine);
-        currentLine = word;
-      }
-    }
-    lines.push(currentLine);
-    return lines;
-  };
-
-  // Helper: darken/lighten color
-  const adjustColor = (hex: string, amt: number) => {
-    let usePound = false;
-    if (hex[0] === "#") {
-      hex = hex.slice(1);
-      usePound = true;
-    }
-    const num = parseInt(hex, 16);
-    let r = (num >> 16) + amt;
-    if (r > 255) r = 255; else if (r < 0) r = 0;
-    let b = ((num >> 8) & 0x00FF) + amt;
-    if (b > 255) b = 255; else if (b < 0) b = 0;
-    let g = (num & 0x0000FF) + amt;
-    if (g > 255) g = 255; else if (g < 0) g = 0;
-    return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
-  };
-
   return (
     <div className="mt-12 p-6 bg-card border rounded-2xl shadow-sm overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-8">
@@ -260,35 +257,12 @@ ctx.globalAlpha = 1;
             Social Media Preview
           </h3>
           
-         {bgStyle === "texture" && (
-  <div className="absolute inset-0 z-0 pointer-events-none">
-    
-    {/* Visible grain dots */}
-    <div
-      className="absolute inset-0"
-      style={{
-        backgroundImage:
-          "radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px)",
-        backgroundSize: "4px 4px",
-        opacity: 0.4
-      }}
-    />
-
-    {/* Light overlay for depth */}
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.15))"
-      }}
-    />
-  </div>
-)}
           <div 
             ref={previewRef}
             className={cn(
-              "aspect-square w-full max-w-[500px] mx-auto rounded-xl shadow-lg flex flex-col items-center justify-center p-8 text-center transition-all duration-500",
-              bgStyle === "mesh" && "relative overflow-hidden"
+              "aspect-square w-full max-w-[500px] mx-auto rounded-xl shadow-lg flex flex-col items-center justify-center p-8 text-center transition-all duration-500 relative",
+              bgStyle === "mesh" && "overflow-hidden",
+              bgStyle === "texture" && "overflow-hidden"
             )}
             style={{ 
               backgroundColor: bgColor, 
@@ -298,8 +272,8 @@ ctx.globalAlpha = 1;
           >
             {bgStyle === "mesh" && (
               <div className="absolute inset-0 opacity-40 pointer-events-none">
-                 <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[80px]" style={{ backgroundColor: adjustColor(bgColor, 30) }} />
-                 <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[80px]" style={{ backgroundColor: adjustColor(bgColor, 20) }} />
+                <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[80px]" style={{ backgroundColor: adjustColor(bgColor, 30) }} />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[80px]" style={{ backgroundColor: adjustColor(bgColor, 20) }} />
               </div>
             )}
             
@@ -307,10 +281,34 @@ ctx.globalAlpha = 1;
               <div className="absolute inset-4 border border-current opacity-20 pointer-events-none" />
             )}
 
+            {bgStyle === "texture" && (
+              <div className="absolute inset-0 z-0 pointer-events-none">
+                {/* Visible grain dots */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px)",
+                    backgroundSize: "4px 4px",
+                    opacity: 0.4
+                  }}
+                />
+
+                {/* Light overlay for depth */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.15))"
+                  }}
+                />
+              </div>
+            )}
+
             <div className="relative z-10 flex flex-col items-center justify-center">
-            <span className="px-3 py-1 text-xs rounded-full bg-black/20 backdrop-blur-sm mb-4">
-  Word of the Day
-</span>
+              <span className="px-3 py-1 text-xs rounded-full bg-black/20 backdrop-blur-sm mb-4">
+                Word of the Day
+              </span>
               <div className="w-12 h-[2px] bg-current opacity-40 mb-4" />
               <h4 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">{word}</h4>
               <p className="text-lg sm:text-xl font-medium mb-8 leading-relaxed opacity-95">{meaning}</p>
@@ -332,7 +330,7 @@ ctx.globalAlpha = 1;
               <Palette className="w-4 h-4" /> Style
             </Label>
             <div className="grid grid-cols-2 gap-2">
-             {(["solid", "gradient", "mesh", "elegant", "texture"] as BgStyle[]).map((s) => (
+              {(["solid", "gradient", "mesh", "elegant", "texture"] as BgStyle[]).map((s) => (
                 <Button 
                   key={s}
                   variant={bgStyle === s ? "default" : "outline"}
@@ -378,12 +376,13 @@ ctx.globalAlpha = 1;
           </div>
 
           <div className="pt-4 p-4 bg-muted/40 rounded-xl border border-dashed border-border">
-             <p className="text-[11px] text-muted-foreground leading-relaxed">
-               <strong>Tip:</strong> Share this word on Instagram, Twitter, or WhatsApp to help your friends build their vocabulary too!
-             </p>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              <strong>Tip:</strong> Share this word on Instagram, Twitter, or WhatsApp to help your friends build their vocabulary too!
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
