@@ -11,15 +11,24 @@ interface SocialShareCardProps {
   example: string;
 }
 
-type BgStyle = "solid" | "gradient" | "mesh" | "elegant";
+type BgStyle = "solid" | "gradient" | "mesh" | "elegant" | "texture";
 
 const PRESET_COLORS = [
-  { bg: "#2F4F4F", text: "#FFFFFF" }, // Dark Ash Green
-  { bg: "#1E293B", text: "#F8FAFC" }, // Slate
-  { bg: "#FACC15", text: "#000000" }, // Yellow
-  { bg: "#EF4444", text: "#FFFFFF" }, // Red
-  { bg: "#8B5CF6", text: "#FFFFFF" }, // Violet
-  { bg: "#10B981", text: "#FFFFFF" }, // Emerald
+  { bg: "#0EA5E9", text: "#FFFFFF" }, // Sky Blue
+{ bg: "#6366F1", text: "#FFFFFF" }, // Indigo
+{ bg: "#EC4899", text: "#FFFFFF" }, // Pink
+{ bg: "#F97316", text: "#000000" }, // Orange
+{ bg: "#14B8A6", text: "#FFFFFF" }, // Teal
+{ bg: "#A855F7", text: "#FFFFFF" }, // Purple
+{ bg: "#22C55E", text: "#000000" }, // Green (brighter)
+{ bg: "#EAB308", text: "#000000" }, // Amber
+{ bg: "#64748B", text: "#FFFFFF" }, // Cool Gray
+{ bg: "#334155", text: "#FFFFFF" }, // Dark Slate
+{ bg: "#BE123C", text: "#FFFFFF" }, // Rose Red
+{ bg: "#0F172A", text: "#F1F5F9" }, // Deep Navy
+{ bg: "#D946EF", text: "#FFFFFF" }, // Fuchsia
+{ bg: "#84CC16", text: "#000000" }, // Lime
+{ bg: "#06B6D4", text: "#000000" }, // Cyan
 ];
 
 export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps) => {
@@ -30,7 +39,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
   const previewRef = useRef<HTMLDivElement>(null);
 
   const randomize = () => {
-    const styles: BgStyle[] = ["solid", "gradient", "mesh", "elegant"];
+   const styles: BgStyle[] = ["solid", "gradient", "mesh", "elegant", "texture"];
     const randomStyle = styles[Math.floor(Math.random() * styles.length)];
     const randomPreset = PRESET_COLORS[Math.floor(Math.random() * PRESET_COLORS.length)];
     
@@ -44,6 +53,35 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    else if (bgStyle === "texture") {
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, width, height);
+
+  // Add noise texture
+  const imageData = ctx.createImageData(width, height);
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const noise = Math.random() * 30; // grain strength
+    imageData.data[i] = noise;     // R
+    imageData.data[i + 1] = noise; // G
+    imageData.data[i + 2] = noise; // B
+    imageData.data[i + 3] = 40;    // Alpha (very subtle)
+  }
+  ctx.putImageData(imageData, 0, 0);
+
+  // Optional overlay pattern (diagonal lines)
+  ctx.strokeStyle = adjustColor(bgColor, -40);
+  ctx.globalAlpha = 0.15;
+  ctx.lineWidth = 1;
+
+  for (let i = -height; i < width; i += 40) {
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i + height, height);
+    ctx.stroke();
+  }
+
+  ctx.globalAlpha = 1;
+}
 
     // Set high resolution
     const width = 1080;
@@ -175,6 +213,27 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
             <ImageIcon className="w-5 h-5 text-primary" />
             Social Media Preview
           </h3>
+          {bgStyle === "texture" && (
+  <div className="absolute inset-0 pointer-events-none">
+    {/* Grain overlay */}
+    <div
+      className="absolute inset-0 opacity-20 mix-blend-overlay"
+      style={{
+        backgroundImage:
+          "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><filter id=\"noise\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23noise)\"/></svg>')"
+      }}
+    />
+
+    {/* Subtle diagonal pattern */}
+    <div
+      className="absolute inset-0 opacity-10"
+      style={{
+        backgroundImage:
+          "repeating-linear-gradient(45deg, rgba(255,255,255,0.2) 0px, rgba(255,255,255,0.2) 1px, transparent 1px, transparent 40px)"
+      }}
+    />
+  </div>
+)}
           <div 
             ref={previewRef}
             className={cn(
@@ -219,7 +278,7 @@ export const SocialShareCard = ({ word, meaning, example }: SocialShareCardProps
               <Palette className="w-4 h-4" /> Style
             </Label>
             <div className="grid grid-cols-2 gap-2">
-              {(["solid", "gradient", "mesh", "elegant"] as BgStyle[]).map((s) => (
+             {(["solid", "gradient", "mesh", "elegant", "texture"] as BgStyle[]).map((s) => (
                 <Button 
                   key={s}
                   variant={bgStyle === s ? "default" : "outline"}
