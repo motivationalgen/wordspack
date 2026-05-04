@@ -31,10 +31,12 @@ export const Footer = () => {
         </div>
         <div>
           <h3 className="text-sm font-semibold mb-3">About</h3>
-          <p className="text-sm text-muted-foreground">
-            Wordspack brings together everyday word utilities in one clean, mobile-first interface. Bookmark it for your
-            next puzzle, paper, or pitch deck.
-          </p>
+          <ul className="space-y-1 text-sm">
+            <li><Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link></li>
+            <li><Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+            <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+          </ul>
         </div>
       </div>
       <div className="border-t border-border">

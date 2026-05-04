@@ -27,6 +27,10 @@ const ReadabilityChecker = lazy(() => import("./pages/ReadabilityChecker"));
 const SentenceRewriter = lazy(() => import("./pages/SentenceRewriter"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Login = lazy(() => import("./pages/Login"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -63,6 +67,10 @@ const App = () => (
                 <Route path="/readability-checker" element={<ReadabilityChecker />} />
                 <Route path="/sentence-rewriter" element={<SentenceRewriter />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route
                   path="/Elora"
                   element={

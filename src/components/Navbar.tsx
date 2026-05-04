@@ -45,6 +45,34 @@ export const Navbar = () => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-primary transition-colors outline-none">
+              About <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48 grid grid-cols-1 gap-1 p-2">
+              <DropdownMenuItem asChild>
+                <NavLink to="/about" className="flex items-center gap-2 w-full cursor-pointer">
+                  About Wordspack
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/privacy" className="flex items-center gap-2 w-full cursor-pointer">
+                  Privacy Policy
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/terms" className="flex items-center gap-2 w-full cursor-pointer">
+                  Terms of Service
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/contact" className="flex items-center gap-2 w-full cursor-pointer">
+                  Contact
+                </NavLink>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         <button
@@ -56,9 +84,21 @@ export const Navbar = () => {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
-      {open && (
+{open && (
         <div className="lg:hidden border-t border-border bg-background animate-fade-in">
           <nav className="container py-2 grid">
+            <NavLink
+              to="/"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-2 py-2.5 rounded-md text-sm font-medium",
+                  isActive ? "bg-secondary text-primary" : "text-foreground hover:bg-secondary/60",
+                )
+              }
+            >
+              Home
+            </NavLink>
             {TOOLS.map((t) => (
               <NavLink
                 key={t.slug}
@@ -75,6 +115,54 @@ export const Navbar = () => {
                 {t.name}
               </NavLink>
             ))}
+            <NavLink
+              to="/about"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-2 py-2.5 rounded-md text-sm font-medium",
+                  isActive ? "bg-secondary text-primary" : "text-foreground hover:bg-secondary/60",
+                )
+              }
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/privacy"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-2 py-2.5 rounded-md text-sm font-medium",
+                  isActive ? "bg-secondary text-primary" : "text-foreground hover:bg-secondary/60",
+                )
+              }
+            >
+              Privacy
+            </NavLink>
+            <NavLink
+              to="/terms"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-2 py-2.5 rounded-md text-sm font-medium",
+                  isActive ? "bg-secondary text-primary" : "text-foreground hover:bg-secondary/60",
+                )
+              }
+            >
+              Terms
+            </NavLink>
+            <NavLink
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-2 py-2.5 rounded-md text-sm font-medium",
+                  isActive ? "bg-secondary text-primary" : "text-foreground hover:bg-secondary/60",
+                )
+              }
+            >
+              Contact
+            </NavLink>
           </nav>
         </div>
       )}
