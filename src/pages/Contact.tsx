@@ -30,7 +30,6 @@ const Contact = () => {
   return (
     <Layout>
       <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
-      <AdSlot variant="top-banner" />
       <div className="container max-w-2xl py-12 space-y-8">
         <header className="text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">

@@ -17,7 +17,6 @@ const About = () => {
   return (
     <Layout>
       <SEOHead title={title} description={description} path="/about" jsonLd={jsonLd} />
-      <AdSlot variant="top-banner" />
       <div className="container max-w-4xl py-12 space-y-8">
         <header className="text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
