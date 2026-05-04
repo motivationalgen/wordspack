@@ -1,4 +1,5 @@
-import { PageLayout } from '@/components/PageLayout';
+import { SEOHead } from '@/components/SEOHead';
+import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 
 const About = () => {
@@ -13,15 +14,9 @@ const About = () => {
   };
 
   return (
-    <PageLayout
-      title={title}
-      description={description}
-      path="/about"
-      jsonLd={jsonLd}
-      headerTitle="About Wordspack"
-      headerSubtitle="Your toolkit for words, writing, and creativity"
-    >
-      <div className="space-y-8">
+    <Layout>
+      <SEOHead title={title} description={description} path="/about" jsonLd={jsonLd} />
+      <div className="container max-w-4xl space-y-8">
         <section className="prose prose-headings:text-foreground prose-p:text-foreground/80 prose-strong:font-semibold max-w-none">
           <h2>What is Wordspack?</h2>
           <p>
@@ -50,7 +45,7 @@ const About = () => {
 
         <AdSlot variant="mid-content" />
       </div>
-    </PageLayout>
+    </Layout>
   );
 };
 
