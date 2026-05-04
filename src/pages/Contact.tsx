@@ -1,4 +1,4 @@
-#import { SEOHead } from '@/components/SEOHead';
+import { SEOHead } from '@/components/SEOHead';
 import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 import { Button } from '@/components/ui/button';
