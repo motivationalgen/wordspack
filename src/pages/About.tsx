@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
+import { PageLayout } from '@/components/PageLayout';
 import { AdSlot } from '@/components/AdSlot';
 
 const About = () => {
@@ -15,16 +13,15 @@ const About = () => {
   };
 
   return (
-    <Layout>
-      <SEOHead title={title} description={description} path="/about" jsonLd={jsonLd} />
-      <div className="container max-w-4xl py-12 space-y-8">
-        <header className="text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
-            About Wordspack
-          </h1>
-          <p className="text-xl text-muted-foreground">Your toolkit for words, writing, and creativity</p>
-        </header>
-
+    <PageLayout
+      title={title}
+      description={description}
+      path="/about"
+      jsonLd={jsonLd}
+      headerTitle="About Wordspack"
+      headerSubtitle="Your toolkit for words, writing, and creativity"
+    >
+      <div className="space-y-8">
         <section className="prose prose-headings:text-foreground prose-p:text-foreground/80 prose-strong:font-semibold max-w-none">
           <h2>What is Wordspack?</h2>
           <p>
@@ -53,9 +50,8 @@ const About = () => {
 
         <AdSlot variant="mid-content" />
       </div>
-    </Layout>
+    </PageLayout>
   );
 };
 
 export default About;
-
