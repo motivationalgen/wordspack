@@ -1,6 +1,4 @@
-import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
-import { AdSlot } from '@/components/AdSlot';
+import { PageLayout } from '@/components/PageLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,16 +26,15 @@ const Contact = () => {
   };
 
   return (
-    <Layout>
-      <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
-      <div className="container max-w-2xl py-12 space-y-8">
-        <header className="text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
-            Contact Us
-          </h1>
-          <p className="text-xl text-muted-foreground">Questions? Feedback? Let us know!</p>
-        </header>
-
+    <PageLayout
+      title={title}
+      description={description}
+      path="/contact"
+      jsonLd={jsonLd}
+      headerTitle="Contact Us"
+      headerSubtitle="Questions? Feedback? Let us know!"
+    >
+      <div className="space-y-8">
         {submitted ? (
           <div className="text-center p-12 bg-secondary/50 rounded-xl">
             <h2 className="text-2xl font-bold mb-4">Thanks!</h2>
@@ -47,7 +44,7 @@ const Contact = () => {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
             <Input
               placeholder="Your name"
               value={formData.name}
@@ -77,9 +74,8 @@ const Contact = () => {
           </ul>
         </section>
       </div>
-    </Layout>
+    </PageLayout>
   );
 };
 
 export default Contact;
-
