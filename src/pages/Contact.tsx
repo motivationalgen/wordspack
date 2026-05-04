@@ -1,4 +1,5 @@
-import { PageLayout } from '@/components/PageLayout';
+import { SEOHead } from '@/components/SEOHead';
+import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -26,15 +27,9 @@ const Contact = () => {
   };
 
   return (
-    <PageLayout
-      title={title}
-      description={description}
-      path="/contact"
-      jsonLd={jsonLd}
-      headerTitle="Contact Us"
-      headerSubtitle="Questions? Feedback? Let us know!"
-    >
-      <div className="space-y-8">
+    <Layout>
+      <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
+      <div className="container max-w-2xl space-y-8">
         {submitted ? (
           <div className="text-center p-12 bg-secondary/50 rounded-xl">
             <h2 className="text-2xl font-bold mb-4">Thanks!</h2>
@@ -44,7 +39,7 @@ const Contact = () => {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               placeholder="Your name"
               value={formData.name}
@@ -74,7 +69,7 @@ const Contact = () => {
           </ul>
         </section>
       </div>
-    </PageLayout>
+    </Layout>
   );
 };
 
