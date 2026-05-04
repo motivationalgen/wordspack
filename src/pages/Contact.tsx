@@ -35,7 +35,7 @@ const Contact = () => {
             <h2 className="text-2xl font-bold mb-4">Thanks!</h2>
             <p>We'll get back to you soon.</p>
             <Button asChild className="mt-6">
-              <a href="/">Back to Home</a>
+              <a href="/">Back to Home!</a>
             </Button>
           </div>
         ) : (
