@@ -1,5 +1,8 @@
 import { SEOHead } from '@/components/SEOHead';
+blackboxai/fix-duplicate-nav-footer
+import { AdSlot } from '@/components/AdSlot';
 import { Layout } from '@/components/Layout';
+ #main
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -27,7 +30,7 @@ const Contact = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
       <div className="container max-w-2xl space-y-8">
         {submitted ? (
@@ -69,7 +72,7 @@ const Contact = () => {
           </ul>
         </section>
       </div>
-    </Layout>
+    </>
   );
 };
 

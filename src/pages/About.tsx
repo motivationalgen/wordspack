@@ -1,5 +1,4 @@
 import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 
 const About = () => {
@@ -14,7 +13,7 @@ const About = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead title={title} description={description} path="/about" jsonLd={jsonLd} />
       <div className="container max-w-4xl space-y-8">
         <section className="prose prose-headings:text-foreground prose-p:text-foreground/80 prose-strong:font-semibold max-w-none">
@@ -45,7 +44,7 @@ const About = () => {
 
         <AdSlot variant="mid-content" />
       </div>
-    </Layout>
+    </>
   );
 };
 

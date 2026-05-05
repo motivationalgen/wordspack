@@ -1,23 +1,10 @@
-# AdSense Preparation TODO
+# Task: Remove duplicate navbars/footers from pages
 
-## 1. Create new pages ✅
-- [x] src/pages/PrivacyPolicy.tsx
-- [x] src/pages/TermsOfService.tsx
-- [x] src/pages/About.tsx
-- [x] src/pages/Contact.tsx
+## Steps:
+- [x] 1. Edit src/pages/About.tsx: Remove Layout import and wrapper
+- [x] 2. Edit src/pages/Contact.tsx: Remove Layout import and wrapper  
+- [x] 3. Edit src/pages/PrivacyPolicy.tsx: Remove Layout import and wrapper
+- [x] 4. Edit src/pages/TermsOfService.tsx: Remove Layout import and wrapper
+- [x] 5. Test pages in browser (single navbar/footer)
+- [x] 6. Complete task
 
-## 2. Update routing and navigation
-- [x] src/App.tsx: Add new routes ✅
-- [ ] src/components/Navbar.tsx: Add nav links
-- [ ] src/components/Footer.tsx: Add footer links
-
-## 3. SEO files ✅
-- [x] public/sitemap.xml
-- [x] public/robots.txt: Add sitemap line
-- [x] index.html: Enhance meta tags
-
-## 4. Complete server ✅
-- [x] public/server.js: Full Express SPA server
-
-## 5. Test ✅
-- [x] Build and preview
