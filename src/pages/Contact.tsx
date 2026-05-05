@@ -2,7 +2,7 @@ import { SEOHead } from '@/components/SEOHead';
 blackboxai/fix-duplicate-nav-footer
 import { AdSlot } from '@/components/AdSlot';
 import { Layout } from '@/components/Layout';
- #main
+main
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
