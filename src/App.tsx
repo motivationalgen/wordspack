@@ -50,7 +50,7 @@ const App = () => (
           <Layout>
             <Suspense fallback={<RouteFallback />}>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<HomeNoLayout />} />
                 <Route path="/word-scrambler" element={<WordScrambler />} />
                 <Route path="/random-word-generator" element={<RandomWordGenerator />} />
                 <Route path="/word-counter" element={<WordCounter />} />
