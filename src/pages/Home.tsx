@@ -6,12 +6,13 @@ import { RecentActivity } from "@/components/RecentActivity";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { FAQ } from "@/components/FAQ";
+import { Layout } from "@/components/Layout";
 
 import { Logo } from "@/components/Logo";
 
 const Home = () => {
   return (
-    <>
+    <Layout>
       <SEOHead
         title="Wordspack — Smart tools for words, writing, and creativity"
         description="Free online word tools: word scrambler, random word generator, word counter, word of the day, brand name generator, and typing speed test."
@@ -83,12 +84,12 @@ const Home = () => {
         <p>
           Wordspack is a collection of free online word tools designed to help you write better, think faster, and
           create smarter. From word scramblers to typing tests and brand name generators, everything is built for
-          speed and simplicity. There’s no account to create, no popups, and no waiting on a server — every tool runs
+          speed and simplicity. There's no account to create, no popups, and no waiting on a server — every tool runs
           right in your browser.
         </p>
         <p>
-          Whether you’re a student polishing an essay, a writer hunting for inspiration, a teacher designing classroom
-          games, a startup founder searching for the perfect brand name, or a gamer trying to crack today’s Wordle,
+          Whether you're a student polishing an essay, a writer hunting for inspiration, a teacher designing classroom
+          games, a startup founder searching for the perfect brand name, or a gamer trying to crack today's Wordle,
           Wordspack has a tool that fits. The interface is the same on every page, so you only need to learn it once.
         </p>
         <p>
@@ -121,9 +122,8 @@ const Home = () => {
           ]}
         />
       </section>
-    </>
+    </Layout>
   );
 };
 
 export default Home;
-
