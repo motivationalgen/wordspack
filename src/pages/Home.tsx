@@ -13,21 +13,7 @@ import { Logo } from "@/components/Logo";
 const Home = () => {
   return (
     <Layout>
-      <SEOHead
-        title="Wordspack — Smart tools for words, writing, and creativity"
-        description="Free online word tools: word scrambler, random word generator, word counter, word of the day, brand name generator, and typing speed test."
-        path="/"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Wordspack",
-          url: "/",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: "/{tool}",
-          },
-        }}
-      />
+     
 
       <section className="container pt-6 pb-10">
         <div className="rounded-[20px] bg-gradient-hero text-primary-foreground p-8 sm:p-12 text-center">
