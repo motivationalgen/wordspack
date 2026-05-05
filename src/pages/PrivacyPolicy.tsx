@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 
 const PrivacyPolicy = () => {
@@ -15,7 +14,7 @@ const PrivacyPolicy = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead title={title} description={description} path="/privacy" jsonLd={jsonLd} />
       <div className="container max-w-4xl py-12 space-y-8">
         <header className="text-center">
@@ -55,7 +54,7 @@ const PrivacyPolicy = () => {
 
         <AdSlot variant="mid-content" />
       </div>
-    </Layout>
+    </>
   );
 };
 

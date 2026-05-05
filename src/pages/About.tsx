@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 
 const About = () => {
@@ -15,7 +14,7 @@ const About = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead title={title} description={description} path="/about" jsonLd={jsonLd} />
       <div className="container max-w-4xl py-12 space-y-8">
         <header className="text-center">
@@ -53,7 +52,7 @@ const About = () => {
 
         <AdSlot variant="mid-content" />
       </div>
-    </Layout>
+    </>
   );
 };
 

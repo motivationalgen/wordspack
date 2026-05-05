@@ -1,5 +1,4 @@
 import { SEOHead } from '@/components/SEOHead';
-import { Layout } from '@/components/Layout';
 import { AdSlot } from '@/components/AdSlot';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,7 +27,7 @@ const Contact = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
       <div className="container max-w-2xl py-12 space-y-8">
         <header className="text-center">
@@ -77,7 +76,7 @@ const Contact = () => {
           </ul>
         </section>
       </div>
-    </Layout>
+    </>
   );
 };
 
