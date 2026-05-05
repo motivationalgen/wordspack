@@ -16,14 +16,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <SEOHead title={title} description={description} path="/privacy" jsonLd={jsonLd} />
-      <div className="container max-w-4xl py-12 space-y-8">
-        <header className="text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
-            Privacy Policy
-          </h1>
-          <p className="text-xl text-muted-foreground">Last updated: October 2024</p>
-        </header>
-
+      <div className="container max-w-4xl space-y-8">
         <section className="prose prose-headings:text-foreground prose-p:text-foreground/80 prose-a:text-primary prose-strong:font-semibold max-w-none">
           <p>
             Wordspack ("we", "us", "our") respects your privacy and is committed to protecting it through our compliance with this policy.
@@ -33,7 +26,7 @@ const PrivacyPolicy = () => {
           <p>No accounts or personal info required. Tool inputs stay in your browser session. No server storage.</p>
 
           <h2>Google AdSense</h2>
-          <p>This site uses Google AdSense. Google may use cookies/DoubleClick cookie for ads based on visit history. You can opt-out via <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>.</p>
+          <p>This site uses Google AdSense. Google may use cookies/DoubleClick cookie for ads based on visit history. You can opt-out via <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google Ad Settings</a>.</p>
           <p>Publisher ID: pub-1979832052674759</p>
 
           <h2>Cookies</h2>
@@ -59,4 +52,3 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
-

@@ -1,5 +1,8 @@
 import { SEOHead } from '@/components/SEOHead';
+blackboxai/fix-duplicate-nav-footer
 import { AdSlot } from '@/components/AdSlot';
+import { Layout } from '@/components/Layout';
+ #main
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -29,20 +32,13 @@ const Contact = () => {
   return (
     <>
       <SEOHead title={title} description={description} path="/contact" jsonLd={jsonLd} />
-      <div className="container max-w-2xl py-12 space-y-8">
-        <header className="text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
-            Contact Us
-          </h1>
-          <p className="text-xl text-muted-foreground">Questions? Feedback? Let us know!</p>
-        </header>
-
+      <div className="container max-w-2xl space-y-8">
         {submitted ? (
           <div className="text-center p-12 bg-secondary/50 rounded-xl">
             <h2 className="text-2xl font-bold mb-4">Thanks!</h2>
             <p>We'll get back to you soon.</p>
             <Button asChild className="mt-6">
-              <a href="/">Back to Home</a>
+              <a href="/">Back to Home!</a>
             </Button>
           </div>
         ) : (
@@ -81,4 +77,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
