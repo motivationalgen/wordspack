@@ -12,7 +12,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
-import { DAILY_STATS, TOOL_BREAKDOWN, LOCATION_DATA, SUMMARY } from "@/data/stats";
+import { DAILY_STATS, TOOL_BREAKDOWN, LOCATION_DATA } from "@/data/stats";
 import { SEOHead } from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
@@ -70,16 +70,25 @@ const Admin = () => {
         daily: DAILY_STATS,
         tools: TOOL_BREAKDOWN,
         locations: LOCATION_DATA,
-        summary: SUMMARY,
+        summary: {
+          mostViewed: "Word Scrambler",
+          totalUsersToday: 230,
+          totalUsersAllTime: 1245,
+          avgSessionTime: "2m",
+          growth: "+12.5%",
+        },
       };
     }
 
-    // 1. Tool Breakdown
+    // Distinct sessions/users
+    const sessionSet = new Set(realStats.map(s => s.session_id).filter(Boolean));
+    const totalUsersAllTime = sessionSet.size;
+
+    // Tool Breakdown
     const toolMap: Record<string, { count: number; users: number }> = {};
     realStats.forEach((s) => {
       if (!toolMap[s.tool_name]) toolMap[s.tool_name] = { count: 0, users: 0 };
       toolMap[s.tool_name].count += 1;
-      // Note: Real users would need a distinct ID, using count for now as "pings"
       toolMap[s.tool_name].users += 1;
     });
     const tools = Object.entries(toolMap).map(([name, val]) => ({
@@ -88,7 +97,7 @@ const Admin = () => {
       users: val.users,
     }));
 
-    // 2. Location Data
+    // Location Data
     const locMap: Record<string, number> = {};
     realStats.forEach((s) => {
       const country = s.country || "Unknown";
@@ -99,7 +108,7 @@ const Admin = () => {
       .sort((a, b) => b.value - a.value)
       .slice(0, 5);
 
-    // 3. Daily Stats & Growth
+    // Daily Stats & Growth
     const dailyMap: Record<string, number> = {};
     const today = new Date().toLocaleDateString("en-US", { weekday: "short" });
     const yesterdayDate = new Date();
@@ -126,8 +135,7 @@ const Admin = () => {
       growth = "+100%";
     }
 
-    // 4. Avg. Session Time (Rough estimate based on event clusters)
-    // We group events by tool and calculate the span
+    // Avg. Session Time
     let totalTime = 0;
     let sessionCount = 0;
     const toolSessions: Record<string, number[]> = {};
@@ -140,7 +148,6 @@ const Admin = () => {
     Object.values(toolSessions).forEach(times => {
       if (times.length > 1) {
         const span = Math.max(...times) - Math.min(...times);
-        // Only count if span is less than 30 mins (assumed single session)
         if (span > 0 && span < 1800000) {
           totalTime += span;
           sessionCount++;
@@ -150,7 +157,7 @@ const Admin = () => {
 
     const avgSessionMinutes = sessionCount > 0 
       ? Math.round(totalTime / sessionCount / 60000) 
-      : 2; // Default to 2 mins for single clicks
+      : 2;
 
     return {
       tools,
@@ -159,6 +166,7 @@ const Admin = () => {
       summary: {
         mostViewed: tools[0]?.name || "None",
         totalUsersToday: todayCount,
+        totalUsersAllTime,
         avgSessionTime: `${avgSessionMinutes}m`,
         growth: growth,
       },
@@ -224,7 +232,7 @@ const Admin = () => {
       </header>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Card className="border-border/50 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Most Viewed Today</CardTitle>
@@ -237,12 +245,22 @@ const Admin = () => {
         </Card>
         <Card className="border-border/50 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total Users</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Users Today</CardTitle>
             <Users className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-primary">{processedData.summary.totalUsersToday}</div>
             <p className="text-xs text-green-600 font-medium mt-1">{processedData.summary.growth} from yesterday</p>
+          </CardContent>
+        </Card>
+        <Card className="border-border/50 shadow-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Users</CardTitle>
+            <Users className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-primary">{processedData.summary.totalUsersAllTime}</div>
+            <p className="text-xs text-muted-foreground mt-1">All time distinct sessions</p>
           </CardContent>
         </Card>
         <Card className="border-border/50 shadow-sm">
@@ -468,3 +486,4 @@ const Admin = () => {
 };
 
 export default Admin;
+
