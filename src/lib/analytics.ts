@@ -1,4 +1,5 @@
 import { supabase } from "./supabase";
+import { generateSessionId } from './uuid';
 
 const LOCATION_CACHE_KEY = "wordspack_user_location";
 const LOCAL_STATS_KEY = "wordspack_local_stats";
@@ -24,10 +25,12 @@ export const trackEvent = async (toolName: string) => {
       }
     }
 
+    const sessionId = generateSessionId();
     const event = {
       tool_name: toolName,
       country: country,
       timestamp: new Date().toISOString(),
+      session_id: sessionId,
     };
 
     // 2. Insert event into Supabase
@@ -86,3 +89,4 @@ export const clearLocalStats = () => {
 };
 
 export const isSupabaseConfigured = () => !!supabase;
+
