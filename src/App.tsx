@@ -11,7 +11,10 @@ import NotFound from "./pages/NotFound.tsx";
 
 const Home = lazy(() => import("./pages/Home"));
 const WordScrambler = lazy(() => import("./pages/WordScrambler"));
+const HomeNoLayout = lazy(() => import("./pages/HomeNoLayout"));
+
 const RandomWordGenerator = lazy(() => import("./pages/RandomWordGenerator"));
+
 const WordCounter = lazy(() => import("./pages/WordCounter"));
 const WordOfTheDay = lazy(() => import("./pages/WordOfTheDay"));
 const BrandNameGenerator = lazy(() => import("./pages/BrandNameGenerator"));
@@ -32,6 +35,9 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 import { ProtectedRoute } from "./components/ProtectedRoute";
+
+
+
 
 const queryClient = new QueryClient();
 

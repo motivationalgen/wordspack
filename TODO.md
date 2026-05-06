@@ -1,12 +1,11 @@
-# Task: Add site total users to admin dashboard
+# TODO
 
-## Steps:
-- [x] 1. Update analytics.ts: Add session_id UUID to trackEvent/getStats
-- [x] 2. Update Admin.tsx: Add Total Users All Time card (distinct session count), shift grid to 3cols mobile
-- [ ] 3. Supabase: ALTER TABLE add session_id column
-- [x] 4. Test: Generate events, verify distinct count UI/backend
-- [ ] 5. Commit/push
+## White/blank site debugging
+- [x] Identify dev build was failing due to SWC native binding errors.
+- [x] Switch Vite plugin from `@vitejs/plugin-react-swc` to `@vitejs/plugin-react`.
+- [x] Ensure dev server can start and serves HTML.
+- [ ] Fix runtime error on deployed site: `HomeNoLayout is not defined` caused React to crash.
+- [ ] Remove duplicate/mis-inserted `HomeNoLayout` declarations in `src/App.tsx`.
+- [ ] Re-verify locally with `npm run dev` + check console for errors.
+- [ ] Rebuild and deploy again; verify on wordspack.com.
 
-Made with BLACKBOXAI
-
-Made with BLACKBOXAI
