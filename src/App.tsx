@@ -13,6 +13,7 @@ const Home = lazy(() => import("./pages/Home"));
 const WordScrambler = lazy(() => import("./pages/WordScrambler"));
 const HomeNoLayout = lazy(() => import("./pages/HomeNoLayout"));
 
+
 const RandomWordGenerator = lazy(() => import("./pages/RandomWordGenerator"));
 
 const WordCounter = lazy(() => import("./pages/WordCounter"));

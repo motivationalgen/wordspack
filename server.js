@@ -12,9 +12,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Handle SPA routing: serve index.html for all non-file requests
-app.get('*', (req, res) => {
+// Express 5 path-to-regexp is strict; use a regex route.
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
